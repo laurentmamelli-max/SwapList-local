@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Swapmod Local Queue Builder</title>
+    <link rel="stylesheet" href="./assets/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Local Browser App</p>
+          <h1>Swapmod Queue Builder</h1>
+          <p class="lead">
+            Outil local inspire de swaplist.app pour combiner des projets Bambu/Orca
+            `*.3mf` en un seul fichier `*.swap.3mf`.
+          </p>
+        </div>
+
+        <div class="hero-actions">
+          <label class="dropzone" id="dropzone">
+            <input id="file-input" type="file" accept=".3mf,.gcode.3mf" multiple hidden>
+            <span class="dropzone-title">Glisse tes fichiers ici</span>
+            <span class="dropzone-subtitle">ou clique pour selectionner des `.3mf` / `.gcode.3mf`</span>
+          </label>
+
+          <div class="controls-card">
+            <label>
+              <span>Nom du fichier de sortie</span>
+              <input id="output-name" type="text" placeholder="mix">
+            </label>
+
+            <label>
+              <span>Loop repeats</span>
+              <input id="loop-repeats" type="number" min="1" step="1" value="1">
+            </label>
+
+            <div class="button-row">
+              <button id="export-button" class="primary" disabled>Generer le fichier SWAP</button>
+              <button id="reset-button" class="ghost" type="button">Reset</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard">
+        <article class="metric-card">
+          <span class="metric-label">Duree totale</span>
+          <strong class="metric-value" id="metric-duration">0m 0s</strong>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Plates</span>
+          <strong class="metric-value" id="metric-plates">0</strong>
+        </article>
+        <article class="metric-card filament-card">
+          <span class="metric-label">Filaments</span>
+          <div id="filament-summary" class="filament-summary">
+            <span class="empty-text">Aucun fichier charge</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="workspace">
+        <div class="workspace-header">
+          <div>
+            <p class="section-kicker">Queue</p>
+            <h2>Ordre d'impression</h2>
+          </div>
+          <p class="workspace-help">
+            Ajuste les repetitions, remonte ou descends les plates, puis exporte un `.swap.3mf`.
+          </p>
+        </div>
+
+        <div id="queue-empty" class="empty-panel">
+          Depose un ou plusieurs fichiers Bambu Studio / Orca Slicer pour commencer.
+        </div>
+
+        <ol id="queue-list" class="queue-list"></ol>
+      </section>
+
+      <section class="log-section">
+        <div class="workspace-header">
+          <div>
+            <p class="section-kicker">Log</p>
+            <h2>Activite</h2>
+          </div>
+          <div id="progress-text" class="progress-text">Idle</div>
+        </div>
+
+        <div class="progress-bar">
+          <div id="progress-bar-fill" class="progress-bar-fill"></div>
+        </div>
+
+        <pre id="log-output" class="log-output">Application prete.</pre>
+      </section>
+    </main>
+
+    <script src="./vendor/jszip.min.js"></script>
+    <script src="./vendor/spark-md5.min.js"></script>
+    <script src="./src/app.js"></script>
+  </body>
+</html>
